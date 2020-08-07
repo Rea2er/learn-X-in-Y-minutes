@@ -20,15 +20,15 @@ promise
     console.log("This is in the catch " + fail);
   });
 
-const promiseOne = new Promise((resolve) => {
+const promiseOne = new Promise((resolve, reject) => {
   resolve("Promise one success");
 });
 
-const promiseTwo = new Promise((resolve) => {
+const promiseTwo = new Promise((resolve, reject) => {
   resolve("Promise Two success");
 });
 
-const promiseThree = new Promise((resolve) => {
+const promiseThree = new Promise((resolve, reject) => {
   resolve("Promise Three success");
 });
 
@@ -43,4 +43,20 @@ Promise.all([promiseOne, promiseTwo, promiseThree]).then((result) => {
 // If it rejects, it is rejected with the reason from the first promise that was rejected.
 Promise.race([promiseOne, promiseTwo, promiseThree]).then((result) => {
   console.log("This is in the then " + result);
+});
+
+// Promise with Async method, Example from MDN
+let myFirstPromise = new Promise((resolve, reject) => {
+  // We call resolve(...) when what we were doing asynchronously was successful, and reject(...) when it failed.
+  // In this example, we use setTimeout(...) to simulate async code.
+  // In reality, you will probably be using something like XHR or an HTML5 API.
+  setTimeout(function () {
+    resolve("Success!"); // Yay! Everything went well!
+  }, 2000);
+});
+
+myFirstPromise.then((successMessage) => {
+  // successMessage is whatever we passed in the resolve(...) function above.
+  // It doesn't have to be a string, but if it is only a succeed message, it probably will be.
+  console.log("Yay! " + successMessage);
 });
